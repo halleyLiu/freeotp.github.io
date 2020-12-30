@@ -57,6 +57,7 @@ function onValueChanged() {
 	qrcode.clear();
 	qrcode.makeCode(uri);
   document.getElementById("urilink").href = uri;
+  document.getElementById("uri").value = uri;
 }
 
 function onRandomClicked() {
@@ -65,5 +66,28 @@ function onRandomClicked() {
 
 	window.crypto.getRandomValues(bytes);
 	secret.value = base32.encode(bytes);
+	onValueChanged();
+}
+
+function copyUri() {
+	var uri = document.getElementById("uri");
+    uri.select();
+	document.execCommand('copy');
+}
+
+function makeCode() {
+	var uri = document.getElementById("uri");
+	qrcode.clear();
+	qrcode.makeCode(uri.value);
+}
+
+function onImageChanged() {
+	var image = document.getElementById("image");
+	var imageUrl = image.value;
+	if (imageUrl !== null || imageUrl !== undefined || imageUrl !== '') {
+		document.getElementById("preview").style.visibility="hidden";
+	} else {
+		document.getElementById("preview").style.visibility="visible";
+	}
 	onValueChanged();
 }
